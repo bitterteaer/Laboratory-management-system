@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>注册</title>
+
+        <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+        <style>
+            .header {
+                background: #FD5353;
+                border-radius: 10px 10px 0px 0px;
+
+            }
+
+            form {
+                margin: 10px 15px 15px;
+            }
+
+            .header h1 {
+                color: #FFFFFF;
+            }
+
+            .huoqu {
+                background: #fff;
+                color: #0C0C0C;
+                border: 1px solid #E6E6E6;
+            }
+
+            .huoqu:hover {
+                color: #0C0C0C;
+            }
+
+            .zhuce {
+                width: 100%;
+                background: #FD5353;
+                color: #fff;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+
+            .zhuce:hover {
+                opacity: 1;
+            }
+
+            .layui-form-checked[lay-skin=primary] i {
+                border-color: #FD5353 !important;
+            }
+
+            .layui-form-checked i, .layui-form-checked:hover i {
+                background-color: #FD5353 !important;
+            }
+
+        </style>
+        <script src="js/jquery-1.11.3.js"></script>
+    </head>
+    <body>
+        <div class="layui-row">
+            <form action="/register_requests/register" class="layui-form layui-form-pane layui-col-xs11">
+                <!-- 第一行-->
+                <div class="layui-form-item layui-row header">
+                    <h1 class="layui-col-xs6 layui-col-xs-offset3">注册 303 账号</h1>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i
+                            class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" lay-verify="name" class="layui-input"
+                               placeholder="请输入姓名"/>
+                    </div>
+                </div>
+                <!-- 第二行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon layui-icon-cellphone"></i></label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" lay-verify="phone" class="layui-input"
+                               placeholder="请输入手机号"/>
+                    </div>
+                </div>
+                <!-- 第三行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon layui-icon-tabs"></i></label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="username" lay-verify="username" class="layui-input"
+                               placeholder="请输入学号"/>
+                    </div>
+                </div>
+
+                <!--                第四行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i
+                            class="layui-icon layui-icon-password"></i></label>
+                    <div class="layui-input-block">
+                        <input type="password" id="pwd1" name="password" lay-verify="password" class="layui-input"
+                               placeholder="请输入密码"/>
+                    </div>
+                </div>
+                <!--                第五行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i
+                            class="layui-icon layui-icon-password"></i></label>
+                    <div class="layui-input-block">
+                        <input type="password" id="pwd2" name="password" lay-verify="password_twice" class="layui-input"
+                               placeholder="请再次输入密码"/>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i
+                            class="layui-icon layui-icon-username"></i></label>
+                    <div class="layui-input-block">
+                           <select name="grade" autofocus>
+                               <option>大一</option>
+                               <option>大二</option>
+                               <option>大三</option>
+                               <option>大四</option>
+                           </select>
+                    </div>
+                </div>
+                <!--
+                <div class="layui-form-item">
+                    <input type="checkbox" id="key_service" lay-verify="check"  name="" title="我已阅读并同意 <a href='#'>《用户协议》</a><a>《隐私政策》</a>"
+                           lay-skin="primary">
+                </div>-->
+                <br><br>
+                <div class="layui-form-item layui-row ">
+                    <button class="layui-btn zhuce" lay-submit>注册</button>
+                </div>
+                <!--
+                <div class="layui-form-item layui-row">
+                    <div class="layui-col-xs4 layui-col-xs-offset4">
+                        <span>已有账号？</span><a href="#" class="newlogin">直接登录</a>
+                    </div>
+                </div>-->
+            </form>
+        </div>
+
+        <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+        <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+        <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+        <script>
+            layui.use(['form', 'layer'], function () {
+                var form = layui.form;
+                var layer = layui.layer;
+                form.render();
+                form.verify({
+                    username: function (value) {
+                        if (value.length == 0) {
+                            return '用户名不能为空';
+                        }
+                    }
+                    ,password_twice:function (value){
+                        var newpwd=$("#pwd1").val()
+                        if(value.length==0){
+                            return '密码不能为空'
+                        }
+                        if(newpwd!=value){
+                            return '密码必须保持一致哟'
+                        }
+                    }
+                    ,grade:function (value) {
+                        if (value.length == 0) {
+                            return '年级不能为空';
+                        }
+                    }
+                    ,user_number:function (value) {
+                        if (value.length == 0) {
+                            return '学号不能为空';
+                        }
+                    }
+                    , phone: [
+                        /^[1][0-9]{10}$/
+                        , '手机号格式不正确'
+                    ]
+                });
+                $(".newlogin").on('click', function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                    parent.layer.open({
+                        type: 2,    //弹出一个页面层
+                        title: "登录",
+                        content: 'login.html',
+                        area: ['500px', '500px'],
+                        anim: 1
+                    })
+                })
+            })
+        </script>
+    </body>
+</html>

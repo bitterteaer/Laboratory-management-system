@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>设备上传</title>
+
+        <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+        <style>
+            .header {
+                background: #FD5353;
+                border-radius: 10px 10px 0px 0px;
+
+            }
+
+            form {
+                margin: 10px 15px 15px;
+            }
+
+            .header h1 {
+                color: #FFFFFF;
+            }
+
+            .huoqu {
+                background: #fff;
+                color: #0C0C0C;
+                border: 1px solid #E6E6E6;
+            }
+
+            .huoqu:hover {
+                color: #0C0C0C;
+            }
+
+            .zhuce {
+                width: 100%;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+
+            .zhuce:hover {
+                opacity: 1;
+            }
+
+            .layui-form-checked[lay-skin=primary] i {
+                border-color: #FD5353 !important;
+            }
+
+            .layui-form-checked i, .layui-form-checked:hover i {
+                background-color: #FD5353 !important;
+            }
+
+        </style>
+        <script src="js/jquery-1.11.3.js"></script>
+    </head>
+    <body>
+        <div class="layui-row">
+            <form method="post" action="/device/add_device" enctype="multipart/form-data" class="layui-form layui-form-pane layui-col-xs11">
+                <!-- 第一行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><i
+                            class="layui-icon layui-icon-cellphone"></i></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" lay-verify="name" class="layui-input"
+                               placeholder="请输入设备名"/>
+                    </div>
+                </div>
+                <!-- 第三行-->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <i class="layui-icon layui-icon-picture"></i></label>
+                    <div class="layui-input-block">
+                        <input type="file" name="pic" lay-verify="pic" class="layui-input"/>
+                    </div>
+                </div>
+                <!--
+                <div class="layui-form-item">
+                    <input type="checkbox" id="key_service" lay-verify="check"  name="" title="我已阅读并同意 <a href='#'>《用户协议》</a><a>《隐私政策》</a>"
+                           lay-skin="primary">
+                </div>-->
+                <br><br>
+                <div class="layui-form-item layui-row ">
+                    <button class="layui-btn zhuce" lay-submit>确定</button>
+                </div>
+                <!--
+                <div class="layui-form-item layui-row">
+                    <div class="layui-col-xs4 layui-col-xs-offset4">
+                        <span>已有账号？</span><a href="#" class="newlogin">直接登录</a>
+                    </div>
+                </div>-->
+            </form>
+        </div>
+
+        <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+        <script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+        <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+        <script>
+            layui.use(['form', 'layer'], function () {
+                var form = layui.form;
+                var layer = layui.layer;
+                form.render();
+                form.verify({
+                    name: function (value) {
+                        if (value.length == 0) {
+                            return '设备名不能为空';
+                        }
+                    }
+                    ,pic:function (value) {
+                        if (value.length == 0) {
+                            return '图片不能为空';
+                        }
+                    }
+                });
+            })
+        </script>
+    </body>
+</html>
