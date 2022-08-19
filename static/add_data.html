@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>上传资料</title>
+    <link rel="stylesheet" href="layui/src/css/layui.css">
+<style>
+body{padding: 10px;}
+</style>
+</head>
+<body>
+
+<div style="width: 800px;">
+    <form id="form" method="post" action="/data/add_data" enctype="multipart/form-data" class="layui-form">
+        <input id="title" type="text" name="title" placeholder="请输入标题" class="layui-input">
+        <div class="layui-form-item">
+            <textarea name="content" id="demo" class="layui-hide">
+            </textarea>
+        </div>
+        <p class="layui-form-label-col">大文件请使用文件上传功能</p>
+        <input type="file" name="appendix" class="layui-input"/>
+    </form>
+
+    <a class="layui-btn" id="submit">提交</a>
+</div>
+
+<script src="layui/src/layui.js"></script>
+<script src="js/JQ.js"></script>
+<script>
+layui.use('layedit', function(){
+  var layedit = layui.layedit;
+  
+  var index = layedit.build('demo', {
+    //hideTool: ['image']
+    uploadImage: {
+      url: 'json/upload/demoLayEdit.json'
+      ,type: 'get'
+    }
+    //,tool: []
+    //,height: 100
+  });
+  
+  document.getElementById("submit").onclick = function(){
+      var title = document.getElementById("title").value;
+      if(title == ""){
+          alert("标题不能为空");
+          return
+      }
+      var content = layedit.getText(index);
+      console.log(content);
+      document.getElementById("demo").value=content;
+      document.getElementById("form").submit();
+  };
+});
+</script>
+</body>
+</html>

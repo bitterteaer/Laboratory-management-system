@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>big data</title>
+    <script src="js/dropzone.min.js"></script>
+    <link rel="stylesheet" href="css/dropzone.min.css" type="text/css" />
+    <link rel="stylesheet" href="layui/src/css/layui.css">
+    <style>
+        .red-col{
+            background-color: red
+        }
+    </style>
+</head>
+<body>
+    <button onclick="change(2)" id="btn_2" class="layui-btn red-col">完全公开上传</button>
+    <button onclick="change(1)" id="btn_1" class="layui-btn" >同等权限公开上传</button>
+    <button onclick="change(0)" id="btn_0" class="layui-btn" >私有上传</button>
+    <br><br>
+    <p>请点击或拖拽文件到下方自动上传</p>
+    <!--
+    <form id="form_2" action="/big_data/upload?who_can_see=2" class="dropzone"></form>
+    <form id="form_1" action="/big_data/upload?who_can_see=1" class="dropzone"></form>
+    <form id="form_0" action="/big_data/upload?who_can_see=0" class="dropzone"></form>
+    -->
+
+<form action="/big_data/upload?who_can_see=2" class="dropzone" id="my-great-dropzone"></form>
+</body>
+<script>
+  Dropzone.options.myGreatDropzone = { // camelized version of the `id`
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 1024*1024, // MB
+    accept: function(file, done) {
+        //console.log(file.size);
+        //document.getElementById("my-great-dropzone").action = document.getElementById("my-great-dropzone").action+"&size="+file.size;
+        //console.log(document.getElementById("my-great-dropzone"));
+        done();
+        /*
+      if (file.name == "justinbieber.jpg") {
+        done("Naha, you don't.");
+      }
+      else { done(); }
+         */
+    }
+  };
+</script>
+<script>
+    //document.getElementById("form_1").style.display="none";
+    //document.getElementById("form_0").style.display="none";
+    function change(value) {
+        for (var i = 0; i < 3; i++){
+            if(i==value){
+                document.getElementById("btn_"+i).className="layui-btn red-col";
+                document.getElementById("my-great-dropzone").action = "/big_data/upload?who_can_see="+value;
+                //console.log(document.getElementById("my-great-dropzone"));
+            }else {
+                document.getElementById("btn_"+i).className="layui-btn";
+                //document.getElementById("form_"+i).style.display="none";
+            }
+        }
+    }
+</script>
+</html>

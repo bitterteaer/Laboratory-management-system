@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设备数据</title>
+
+    <link rel="stylesheet" href="css/backstage.css">
+    <link rel="stylesheet" href="layui/src/css/layui.css">
+    <script type="text/javascript" src="js/JQ.js"></script>
+    <script src="layui/src/layui.js"></script>
+
+</head>
+<body>
+<button class="layui-btn" onclick="studentFind();">查找</button>
+<!--姓名、性别、年龄、电话号码、购买类型、剩余次数、登记时间、次数消耗时间-->
+<table class="layui-table">
+    <thead>
+    <tr>
+        <th>设备名</th>
+        <th>持有者</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><input id="name" class="layui-input" type="text"></td>
+        <td><input id="holder" class="layui-input" type="text"></td>
+    </tr>
+    </tbody>
+</table>
+<p class="layui-colla-title">查找结果</p>
+<table class="layui-table" lay-filter="parse-table-demo2">
+    <thead>
+    <tr>
+        <!--<th lay-data="{field:'layTableCheckbox',type:'checkbox', fixed: 'left'}"></th>-->
+        <th lay-data="{field:'id_device', width:100, title:'ID'}"></th>
+        <th lay-data="{field:'name', width:100, title:'设备名称'}"></th>
+        <th lay-data="{field:'pic', width:120, title:'图片'}"></th>
+        <th lay-data="{field:'holder', width:200, title:'持有者'}"></th>
+        <th lay-data="{field:'time', width:100, title:'持有时间'}"></th>
+    </tr>
+    </thead>
+    <tbody id="data1">
+    </tbody>
+</table>
+</body>
+<script>
+    //查找学生
+    var studentFind = function(){
+        var name = document.getElementById("name").value;
+        var holder = document.getElementById("holder").value;
+
+        $.post(
+            "/device/find_device_data_html",
+            {
+                "name":name,
+                "holder":holder
+            },
+            function(data,states){
+                document.getElementById("data1").innerHTML=data;
+
+                layui.use('table', function(){
+                    var table = layui.table;
+                    table.init('parse-table-demo2', { //转化静态表格
+                        //height: 'full-500'
+                    });
+                });
+            }
+        );
+    }
+
+</script>
+</html>
